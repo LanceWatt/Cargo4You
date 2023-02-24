@@ -1,0 +1,18 @@
+body {
+  background-color: #00aeef !important;
+
+}
+
+.ui.inverted.top.fixed.menu {
+  background-image: linear-gradient(90deg, #273b6e, #3d5a99, #8b9cb6, #c7d1d9) !important;
+}
+
+.background-image {
+  background-image: url(../../../public/images/MaltaFreeport.jpg);
+  background-size: cover;
+  position:absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}

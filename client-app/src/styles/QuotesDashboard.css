@@ -1,0 +1,33 @@
+.quote-message-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .quote-message {
+    margin: 2rem;
+  }
+  
+  .container {
+    margin-top: 80px;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .form {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .btn {
+    margin-top: 1rem;
+    width: 100%;
+  }
