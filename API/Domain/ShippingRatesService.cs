@@ -47,11 +47,19 @@ namespace Domain.Interfaces.Services.ShippingService
             var allShippingCompanies = _shippingCompanyProvider.ShippingCompanies;
             var qualifiedShippingCompanies = _shippingCompanyFilter.Filter(package, allShippingCompanies);
 
-            // Work out the cheapest supplier based on all qualifying suppliers 
-            _cheapestCompanyCalculator.ShippingCompanies = qualifiedShippingCompanies;
-            var quoteResponseData = _cheapestCompanyCalculator.GetCheapestCompany(package);
-            quoteResponseData.Volume = package.Volume;
-            quoteResponseData.Weight = package.Weight;
+            QuoteResponseData quoteResponseData = new QuoteResponseData();
+
+            quoteResponseData.Found = qualifiedShippingCompanies.Count == 0 ? false : true;
+
+            if (quoteResponseData.Found)
+            {
+                // Work out the cheapest supplier based on all qualifying suppliers 
+                _cheapestCompanyCalculator.ShippingCompanies = qualifiedShippingCompanies;
+                quoteResponseData = _cheapestCompanyCalculator.GetCheapestCompany(package);
+                quoteResponseData.Volume = package.VolumeInCubicMeters;
+                quoteResponseData.Weight = package.Weight;
+            }
+
 
             // Add the processed response data to the quoteRequestDataDto, to send complete data to the database
             var quoteSubmissionDataDto = _mapper.Map<QuoteSubmissionDataDto>(quoteEnquiryDto);
@@ -62,6 +70,8 @@ namespace Domain.Interfaces.Services.ShippingService
             await SaveQuoteDataToDatabase(quoteSubmissionDataDto);
 
             return quoteResponseData;
+
+
         }
 
         public async Task SaveQuoteDataToDatabase(QuoteSubmissionDataDto quoteDataDto)

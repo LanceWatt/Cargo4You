@@ -6,7 +6,7 @@ interface Props {
   weight?: number;
 }
 
-export default function QuoteReturn(props: Props) {
+export default function VQuoteReturn(props: Props) {
   const { companyName, price, volume, weight } = props;
 
   return (
@@ -26,8 +26,8 @@ export default function QuoteReturn(props: Props) {
         <Card.Description>
           The best offer we can provide is with {companyName}!
           <br />
-          The shipping rate is EUR {price}.00, for a Package of {weight}Kg &
-          with a volume of {volume}m3;
+          The shipping rate is EUR {price}, for a Package of {weight}Kg & with a
+          volume of {volume}m3;
         </Card.Description>
       </Card.Content>
       <Card.Content extra>

@@ -2,8 +2,9 @@ import { Container, Grid } from "semantic-ui-react";
 import { ParcelSpecification } from "../../../app/models/ParcelSpecification";
 import "./../../../styles/QuotesDashboard.css";
 import CompaniesList from "./CompaniesList";
+import InValidQuoteReturn from "./InvalidQuoteReturn";
 import QuoteForm from "./QuoteForm";
-import QuoteReturn from "./QuoteReturn";
+import ValidQuoteReturn from "./ValidQuoteReturn";
 
 interface Props {
   parcelSpecs: ParcelSpecification;
@@ -16,6 +17,7 @@ interface Props {
   listOfCompanies: string[];
   volume?: number;
   weight?: number;
+  companyFound: boolean;
 }
 
 export default function QuoteDashBoard(props: Props) {
@@ -44,14 +46,22 @@ export default function QuoteDashBoard(props: Props) {
         </Grid.Column>
 
         <Grid.Column className="form-container">
-          {props.responseReceived && (
-            <QuoteReturn
-              price={props.price}
-              companyName={props.companyName}
-              volume={props.volume}
-              weight={props.weight}
-            />
-          )}
+          {props.responseReceived &&
+            (props.companyFound ? (
+              <ValidQuoteReturn
+                price={props.price}
+                companyName={props.companyName}
+                volume={props.volume}
+                weight={props.weight}
+              />
+            ) : (
+              <InValidQuoteReturn
+                price={props.price}
+                companyName={props.companyName}
+                volume={props.volume}
+                weight={props.weight}
+              />
+            ))}
         </Grid.Column>
       </Grid>
     </Container>

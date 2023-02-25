@@ -23,18 +23,16 @@ namespace Domain.Services
         public decimal CalculateRate(Package package)
         {
             decimal weight = package.Weight;
-            decimal volume = package.Dimensions.VolumeInCm;
-
+            decimal volume = package.Dimensions.VolumeInCubicCm;
             decimal weightPrice = EvaluateWeightPrice(weight);
             decimal volumePrice = EvaluateVolumePrice(volume);
-
             return Math.Max(weightPrice, volumePrice);
         }
 
         public bool CanHandleParcel(Package package)
         {
             decimal weight = package.Weight;
-            decimal volume = package.Volume;
+            decimal volume = package.VolumeInCubicCm;
 
             if ((weight >= MinWeight && weight <= MaxWeight) && volume <= MaxVolumeCmCubed)
             {

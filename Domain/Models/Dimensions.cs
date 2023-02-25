@@ -2,10 +2,11 @@ namespace Domain
 {
     public class Dimensions
     {
-        public decimal Length { get; }
-        public decimal Width { get; }
-        public decimal Height { get; }
-        public decimal VolumeInCm { get; }
+        public decimal LengthInCm { get; }
+        public decimal WidthInCm { get; }
+        public decimal HeightHeightInCm { get; }
+        public decimal VolumeInCubicCm { get; }
+        public decimal VolumeInCubicMeters { get; }
 
         public Dimensions(decimal length, decimal width, decimal height)
         {
@@ -16,10 +17,11 @@ namespace Domain
             if (height < 0)
                 throw new ArgumentException("Height must be greater or equal to 0");
 
-            Length = length;
-            Width = width;
-            Height = height;
-            VolumeInCm = length * height * width;
+            LengthInCm = length;
+            WidthInCm = width;
+            HeightHeightInCm = height;
+            VolumeInCubicCm = LengthInCm * WidthInCm * HeightHeightInCm;
+            VolumeInCubicMeters = VolumeInCubicCm / 1000000;
         }
     }
 }

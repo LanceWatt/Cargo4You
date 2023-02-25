@@ -8,11 +8,11 @@ public class MaltaShipCompany : CompanyBase
 {
     public override EShippingCompany CompanyName { get; } = EShippingCompany.MaltaShip;
 
-    public override decimal MaxWeight { get; } = 2000;
+    public override decimal MaxWeight { get; } = 10;
 
     public override decimal MinWeight { get; } = 10;
 
-    public override decimal MaxVolumeCmCubed { get; } = 100000;
+    public override decimal MaxVolumeCmCubed { get; } = 500;
 
     public override decimal MinVolumeCmCubed { get; } = 0;
 

@@ -17,7 +17,7 @@ function App() {
   });
   const [price, setPrice] = useState<number | undefined>();
   const [companyName, setCompanyName] = useState<string | undefined>();
-  const [companyFound, setCompanyFound] = useState<boolean | undefined>();
+  const [companyFound, setCompanyFound] = useState(false);
   const [volume, setVolume] = useState<number | undefined>();
   const [weight, setWeight] = useState<number | undefined>();
   const [error, setError] = useState<string | undefined>();
@@ -82,6 +82,7 @@ function App() {
         listOfCompanies={listOfCompanies}
         volume={volume}
         weight={weight}
+        companyFound={companyFound}
       />
     </div>
   );
