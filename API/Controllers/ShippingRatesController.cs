@@ -23,7 +23,7 @@ namespace API.Controllers
         {
             QuoteResponseData quoteResponseData = await _shippingRatesService.ProcessQuote(newQuoteEnqiryDto);
 
-            return quoteResponseData;
+            return Ok(quoteResponseData);
         }
 
         // Provide the client with a list of potential suppliers

@@ -14,16 +14,16 @@ namespace API.Domain
             _context = context;
         }
 
-        public async Task<bool> AddQuoteRequestData(QuoteSubmissionData quoteRequestData)
+        public async Task<bool> AddQuoteRequestData(QuoteSubmissionData quoteSubmissionData)
         {
-            _context.QuoteRequestData.Add(quoteRequestData);
+            _context.QuoteRequestData.Add(quoteSubmissionData);
             await _context.SaveChangesAsync();
             return true;
         }
 
-        public async Task<bool> DeleteQuoteRequestData(QuoteSubmissionData quoteRequestData)
+        public async Task<bool> DeleteQuoteRequestData(QuoteSubmissionData quoteSubmissionData)
         {
-            _context.QuoteRequestData.Remove(quoteRequestData);
+            _context.QuoteRequestData.Remove(quoteSubmissionData);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -38,9 +38,9 @@ namespace API.Domain
             return await _context.QuoteRequestData.FindAsync(id);
         }
 
-        public async Task<bool> UpdateQuoteRequestData(QuoteSubmissionData quoteRequestData)
+        public async Task<bool> UpdateQuoteRequestData(QuoteSubmissionData quoteSubmissionData)
         {
-            _context.Entry(quoteRequestData).State = EntityState.Modified;
+            _context.Entry(quoteSubmissionData).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return true;
         }

@@ -2,6 +2,7 @@ import { Container, List, Segment } from "semantic-ui-react";
 
 interface Props {
   listOfCompanies: string[];
+
 }
 
 export default function CompaniesList(props: Props) {

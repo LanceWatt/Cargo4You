@@ -9,18 +9,20 @@ function App() {
   const [parcelSpecs, setParcelSpecs] = useState<ParcelSpecification>({
     firstname: "",
     lastname: "",
-    email: "",
-    length: 0,
-    width: 0,
-    height: 0,
-    weight: 0,
+    emailaddress: "",
+    lengthincm: 0,
+    widthincm: 0,
+    heightincm: 0,
+    weightinkg: 0,
   });
-
   const [price, setPrice] = useState<number | undefined>();
   const [companyName, setCompanyName] = useState<string | undefined>();
+  const [companyFound, setCompanyFound] = useState<boolean | undefined>();
+  const [volume, setVolume] = useState<number | undefined>();
+  const [weight, setWeight] = useState<number | undefined>();
   const [error, setError] = useState<string | undefined>();
   const [responseReceived, setResponseReceived] = useState(false);
-  const [listOfCompanies, setListOfCompanies] = useState([]);
+  const [listOfCompanies, setListOfCompanies] = useState<string[]>([]);
 
   const handleParcelSpecificationChange = (
     event: ChangeEvent<HTMLInputElement>
@@ -31,34 +33,38 @@ function App() {
     });
   };
 
+  useEffect(() => {
+    console.log("companyName:", companyName);
+  }, [companyName]);
+
   const handleSubmit = () => {
     axios
-      .post("https://localhost:5000/api/ShippingRates", parcelSpecs)
+      .post("http://localhost:5000/api/ShippingRates", parcelSpecs)
       .then((response) => {
         const quoteResponseData = response.data;
+        console.log("quoteResponseData:", quoteResponseData);
+        setCompanyFound(quoteResponseData.found);
+        setVolume(quoteResponseData.volume);
+        setWeight(quoteResponseData.weight);
         setCompanyName(quoteResponseData.companySupplier);
         setPrice(quoteResponseData.mostCompetitiveRate);
         setError(undefined);
         setResponseReceived(true);
       })
       .catch((error) => {
-        setCompanyName(undefined);
-        setPrice(undefined);
-        setError(error.response?.data?.message || "Something went wrong");
-        setResponseReceived(true);
+        console.log("API error:", error);
+        setError(error.message);
       });
   };
 
   useEffect(() => {
     axios
-      .get("https://localhost:5000/api/ShippingRates/")
+      .get("http://localhost:5000/api/ShippingRates")
       .then((response) => {
         const list = response.data;
         setListOfCompanies(list);
       })
-      .catch((error) => {
-        // handle error
-      });
+      .catch((error) => {});
   }, []);
 
   return (
@@ -74,6 +80,8 @@ function App() {
         handleSubmit={handleSubmit}
         responseReceived={responseReceived}
         listOfCompanies={listOfCompanies}
+        volume={volume}
+        weight={weight}
       />
     </div>
   );

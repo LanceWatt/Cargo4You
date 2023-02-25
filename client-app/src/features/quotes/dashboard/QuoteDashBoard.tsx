@@ -2,9 +2,8 @@ import { Container, Grid } from "semantic-ui-react";
 import { ParcelSpecification } from "../../../app/models/ParcelSpecification";
 import "./../../../styles/QuotesDashboard.css";
 import CompaniesList from "./CompaniesList";
-import EvaluatedRate from "./EvaluatedRate";
-import QuoteDetails from "./EvaluatedRate";
 import QuoteForm from "./QuoteForm";
+import QuoteReturn from "./QuoteReturn";
 
 interface Props {
   parcelSpecs: ParcelSpecification;
@@ -15,6 +14,8 @@ interface Props {
   handleSubmit: () => void;
   responseReceived: boolean;
   listOfCompanies: string[];
+  volume?: number;
+  weight?: number;
 }
 
 export default function QuoteDashBoard(props: Props) {
@@ -28,7 +29,7 @@ export default function QuoteDashBoard(props: Props) {
             <h2>Get the best shipping rates instantly!</h2>
             <p>
               Enter your parcel's dimensions and weight and we'll provide you
-              with the best quotes from ourselves and our partners.
+              with the best quotes from us and our partners.
             </p>
             <CompaniesList listOfCompanies={listOfCompanies} />
           </div>
@@ -44,9 +45,11 @@ export default function QuoteDashBoard(props: Props) {
 
         <Grid.Column className="form-container">
           {props.responseReceived && (
-            <EvaluatedRate
+            <QuoteReturn
               price={props.price}
               companyName={props.companyName}
+              volume={props.volume}
+              weight={props.weight}
             />
           )}
         </Grid.Column>

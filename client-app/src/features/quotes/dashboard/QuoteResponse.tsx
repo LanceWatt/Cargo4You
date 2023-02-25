@@ -1,9 +1,4 @@
-import {
-  Button,
-
-  Card,
-  Image,
-} from "semantic-ui-react";
+import { Button, Card, Image } from "semantic-ui-react";
 interface Props {
   price?: number;
   companyName?: string;

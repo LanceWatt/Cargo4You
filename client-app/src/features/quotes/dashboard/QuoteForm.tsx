@@ -5,6 +5,7 @@ interface Props {
   parcelSpecs: ParcelSpecification;
   handleSubmit: () => void;
   onSpecsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  
 }
 
 export default function QuoteForm(props: Props) {
@@ -38,10 +39,10 @@ export default function QuoteForm(props: Props) {
           <Form.Field>
             <label>Email</label>
             <input
-              type="email"
+              type="text"
               placeholder="Email"
-              value={props.parcelSpecs.email}
-              name="email"
+              value={props.parcelSpecs.emailaddress}
+              name="emailaddress"
               onChange={props.onSpecsChange}
             />
           </Form.Field>
@@ -55,8 +56,8 @@ export default function QuoteForm(props: Props) {
             <input
               type="number"
               placeholder="Weight"
-              value={props.parcelSpecs.weight}
-              name="weight"
+              value={props.parcelSpecs.weightinkg}
+              name="weightinkg"
               onChange={props.onSpecsChange}
             />
           </Form.Field>
@@ -65,8 +66,8 @@ export default function QuoteForm(props: Props) {
             <input
               type="number"
               placeholder="Length"
-              value={props.parcelSpecs.length}
-              name="length"
+              value={props.parcelSpecs.lengthincm}
+              name="lengthincm"
               onChange={props.onSpecsChange}
             />
           </Form.Field>
@@ -75,8 +76,8 @@ export default function QuoteForm(props: Props) {
             <input
               type="number"
               placeholder="Width"
-              value={props.parcelSpecs.width}
-              name="width"
+              value={props.parcelSpecs.widthincm}
+              name="widthincm"
               onChange={props.onSpecsChange}
             />
           </Form.Field>
@@ -85,8 +86,8 @@ export default function QuoteForm(props: Props) {
             <input
               type="number"
               placeholder="Height"
-              value={props.parcelSpecs.height}
-              name="height"
+              value={props.parcelSpecs.heightincm}
+              name="heightincm"
               onChange={props.onSpecsChange}
             />
           </Form.Field>

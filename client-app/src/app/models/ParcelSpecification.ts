@@ -1,9 +1,9 @@
 export interface ParcelSpecification {
-    firstname: string;
-    lastname: string;
-    email: string;
-    length: number;
-    width: number;
-    height: number;
-    weight: number;
-  }
+  firstname: string;
+  lastname: string;
+  emailaddress: string;
+  lengthincm: number;
+  widthincm: number;
+  heightincm: number;
+  weightinkg: number;
+}
