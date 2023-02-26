@@ -8,7 +8,6 @@ import ValidQuoteReturn from "./ValidQuoteReturn";
 import QuoteForm from "./QuoteForm";
 
 export default observer(function QuoteDashboard() {
-  const { listOfCompanies } = useStore().quoteStore;
   const { quoteStore } = useStore();
 
   return (
@@ -21,6 +20,7 @@ export default observer(function QuoteDashboard() {
               Enter your parcel's dimensions and weight and we'll provide you
               with the best quotes from us and our partners.
             </p>
+
             <CompaniesList />
           </div>
         </Grid.Column>

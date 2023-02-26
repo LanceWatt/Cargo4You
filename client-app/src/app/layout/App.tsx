@@ -9,16 +9,6 @@ import { observer } from "mobx-react-lite";
 function App() {
   const { quoteStore } = useStore();
 
-  const [parcelSpecs, setParcelSpecs] = useState<ParcelSpecification>({
-    firstname: "",
-    lastname: "",
-    emailaddress: "",
-    lengthincm: 0,
-    widthincm: 0,
-    heightincm: 0,
-    weightinkg: 0,
-  });
-
   // Dynamically receive the list of suppliers
   useEffect(() => {
     quoteStore.loadListOfCompanies();
