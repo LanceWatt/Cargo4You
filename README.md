@@ -18,10 +18,14 @@ Installation
 
 To use the Cargo4You web application, follow these steps:
 
-- Download the repository from Github.
+- Download and unzip the repository from Github.
 
-- Open the repository in Visual Studio Code.
+- Open the repository in Visual Studio Code from the solution level
 
+- cd into client app: "cd .\client-app\
+
+- run command 'npm install'
+ 
 - Navigate to Cargo4You/client-app and run npm start in the terminal to start the React application.
 
 - Open an additional terminal window, navigate to Cargo4You/API, and run dotnet run to start the .NET backend.
