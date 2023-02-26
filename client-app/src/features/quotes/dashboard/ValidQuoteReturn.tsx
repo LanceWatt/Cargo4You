@@ -1,13 +1,9 @@
 import { Button, Card, Image } from "semantic-ui-react";
-interface Props {
-  price?: number;
-  companyName?: string;
-  volume?: number;
-  weight?: number;
-}
+import { useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
-export default function VQuoteReturn(props: Props) {
-  const { companyName, price, volume, weight } = props;
+export default observer(function ValidQuoteReturn() {
+  const { quoteStore } = useStore();
 
   return (
     <Card>
@@ -18,21 +14,23 @@ export default function VQuoteReturn(props: Props) {
       />
       <Card.Content>
         <Card.Header>
-          Order Now from {companyName} and Get the Best Shipping Rate!
+          Order Now from {quoteStore.companyName} and Get the Best Shipping
+          Rate!
         </Card.Header>
         <Card.Meta>
           <span className="date">Joined in 2015</span>
         </Card.Meta>
         <Card.Description>
-          The best offer we can provide is with {companyName}!
+          The best offer we can provide is with {quoteStore.companyName}!
           <br />
-          The shipping rate is EUR {price}, for a Package of {weight}Kg & with a
-          volume of {volume}m3;
+          The shipping rate is EUR {quoteStore.price}, for a Package of{" "}
+          {quoteStore.weight}Kg & with a volume of {quoteStore.volume} cubic
+          meters;
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
         <Button color="green" size="large">
-          Order Now from {companyName}
+          Order Now from {quoteStore.companyName}
         </Button>
         <br />
         <p style={{ marginTop: "1em", color: "#808080", fontSize: "1.2em" }}>
@@ -41,4 +39,4 @@ export default function VQuoteReturn(props: Props) {
       </Card.Content>
     </Card>
   );
-}
+});

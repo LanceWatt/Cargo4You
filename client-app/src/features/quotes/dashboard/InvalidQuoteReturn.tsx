@@ -1,14 +1,7 @@
 import { Button, Card, Image } from "semantic-ui-react";
-interface Props {
-  price?: number;
-  companyName?: string;
-  volume?: number;
-  weight?: number;
-}
+import { observer } from "mobx-react-lite";
 
-export default function InValidQuoteReturn(props: Props) {
-  const { companyName, price, volume, weight } = props;
-
+export default observer(function InvalidQuoteReturn() {
   return (
     <Card>
       <Image
@@ -26,4 +19,4 @@ export default function InValidQuoteReturn(props: Props) {
       </Card.Content>
     </Card>
   );
-}
+});

@@ -1,16 +1,40 @@
-import { Button, Item, Form } from "semantic-ui-react";
-import { ParcelSpecification } from "../../../app/models/ParcelSpecification";
+import { Button, Form } from "semantic-ui-react";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../../app/stores/store";
+import agent from "../../../app/api/agent";
 
-interface Props {
-  parcelSpecs: ParcelSpecification;
-  handleSubmit: () => void;
-  onSpecsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  
-}
+export default observer(function QuoteForm() {
+  const { quoteStore } = useStore();
 
-export default function QuoteForm(props: Props) {
+  const handleCalculateRate = async () => {
+    try {
+      quoteStore.listOfCompanies = [];
+      await quoteStore.loadListOfCompanies();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = () => {
+    agent.ShippingRates.quoteResponse(quoteStore.parcelSpecs)
+      .then((quoteResponseData) => {
+        console.log("quoteResponseData:", quoteResponseData);
+        quoteStore.setCompanyFound(quoteResponseData.found);
+        quoteStore.setVolume(quoteResponseData.volume);
+        quoteStore.setWeight(quoteResponseData.weight);
+        quoteStore.setCompanyName(quoteResponseData.companySupplier);
+        quoteStore.setPrice(quoteResponseData.mostCompetitiveRate);
+        quoteStore.setError(undefined);
+        quoteStore.setResponseReceived(true);
+      })
+      .catch((error) => {
+        console.log("API error:", error);
+        quoteStore.setError(error.message);
+      });
+  };
+
   return (
-    <Form className="form" onSubmit={props.handleSubmit} autoComplete="off">
+    <Form className="form" onSubmit={handleSubmit} autoComplete="off">
       <div className="two column row">
         <div className="column">
           <h3 style={{ marginTop: "20px", marginBottom: "10px" }}>
@@ -21,9 +45,9 @@ export default function QuoteForm(props: Props) {
             <input
               type="text"
               placeholder="First Name"
-              value={props.parcelSpecs.firstname}
+              value={quoteStore.parcelSpecs.firstname}
               name="firstname"
-              onChange={props.onSpecsChange}
+              onChange={quoteStore.handleParcelSpecificationChange}
             />
           </Form.Field>
           <Form.Field>
@@ -31,9 +55,9 @@ export default function QuoteForm(props: Props) {
             <input
               type="text"
               placeholder="Last Name"
-              value={props.parcelSpecs.lastname}
+              value={quoteStore.parcelSpecs.lastname}
               name="lastname"
-              onChange={props.onSpecsChange}
+              onChange={quoteStore.handleParcelSpecificationChange}
             />
           </Form.Field>
           <Form.Field>
@@ -41,9 +65,9 @@ export default function QuoteForm(props: Props) {
             <input
               type="text"
               placeholder="Email"
-              value={props.parcelSpecs.emailaddress}
+              value={quoteStore.parcelSpecs.emailaddress}
               name="emailaddress"
-              onChange={props.onSpecsChange}
+              onChange={quoteStore.handleParcelSpecificationChange}
             />
           </Form.Field>
         </div>
@@ -56,9 +80,9 @@ export default function QuoteForm(props: Props) {
             <input
               type="number"
               placeholder="Weight"
-              value={props.parcelSpecs.weightinkg}
+              value={quoteStore.parcelSpecs.weightinkg}
               name="weightinkg"
-              onChange={props.onSpecsChange}
+              onChange={quoteStore.handleParcelSpecificationChange}
             />
           </Form.Field>
           <Form.Field>
@@ -66,9 +90,9 @@ export default function QuoteForm(props: Props) {
             <input
               type="number"
               placeholder="Length"
-              value={props.parcelSpecs.lengthincm}
+              value={quoteStore.parcelSpecs.lengthincm}
               name="lengthincm"
-              onChange={props.onSpecsChange}
+              onChange={quoteStore.handleParcelSpecificationChange}
             />
           </Form.Field>
           <Form.Field>
@@ -76,9 +100,9 @@ export default function QuoteForm(props: Props) {
             <input
               type="number"
               placeholder="Width"
-              value={props.parcelSpecs.widthincm}
+              value={quoteStore.parcelSpecs.widthincm}
               name="widthincm"
-              onChange={props.onSpecsChange}
+              onChange={quoteStore.handleParcelSpecificationChange}
             />
           </Form.Field>
           <Form.Field>
@@ -86,16 +110,21 @@ export default function QuoteForm(props: Props) {
             <input
               type="number"
               placeholder="Height"
-              value={props.parcelSpecs.heightincm}
+              value={quoteStore.parcelSpecs.heightincm}
               name="heightincm"
-              onChange={props.onSpecsChange}
+              onChange={quoteStore.handleParcelSpecificationChange}
             />
           </Form.Field>
-          <Button color="blue" type="submit" className="btn">
+          <Button
+            color="blue"
+            type="submit"
+            className="btn"
+            onClick={handleCalculateRate}
+          >
             Calculate Rate
           </Button>
         </div>
       </div>
     </Form>
   );
-}
+});

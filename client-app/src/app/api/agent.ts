@@ -10,7 +10,8 @@ const requests = {
 }
 
 const ShippingRates = {
-    list: () => requests.get('/ShippingRates')
+    list: () => requests.get('/ShippingRates'),
+    quoteResponse: (parcelSpecs: {}) => requests.post('/ShippingRates', parcelSpecs),
 }
 
 const agent = {  

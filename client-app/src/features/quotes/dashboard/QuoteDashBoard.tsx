@@ -1,27 +1,15 @@
 import { Container, Grid } from "semantic-ui-react";
-import { ParcelSpecification } from "../../../app/models/ParcelSpecification";
+import { observer } from "mobx-react-lite";
 import "./../../../styles/QuotesDashboard.css";
 import CompaniesList from "./CompaniesList";
+import { useStore } from "../../../app/stores/store";
 import InValidQuoteReturn from "./InvalidQuoteReturn";
-import QuoteForm from "./QuoteForm";
 import ValidQuoteReturn from "./ValidQuoteReturn";
+import QuoteForm from "./QuoteForm";
 
-interface Props {
-  parcelSpecs: ParcelSpecification;
-  price?: number;
-  companyName?: string;
-  onSpecsChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string | null;
-  handleSubmit: () => void;
-  responseReceived: boolean;
-  listOfCompanies: string[];
-  volume?: number;
-  weight?: number;
-  companyFound: boolean;
-}
-
-export default function QuoteDashBoard(props: Props) {
-  const { listOfCompanies } = props;
+export default observer(function QuoteDashboard() {
+  const { listOfCompanies } = useStore().quoteStore;
+  const { quoteStore } = useStore();
 
   return (
     <Container fluid>
@@ -33,37 +21,23 @@ export default function QuoteDashBoard(props: Props) {
               Enter your parcel's dimensions and weight and we'll provide you
               with the best quotes from us and our partners.
             </p>
-            <CompaniesList listOfCompanies={listOfCompanies} />
+            <CompaniesList />
           </div>
         </Grid.Column>
 
         <Grid.Column className="form-container">
-          <QuoteForm
-            handleSubmit={props.handleSubmit}
-            parcelSpecs={props.parcelSpecs}
-            onSpecsChange={props.onSpecsChange}
-          />
+          <QuoteForm />
         </Grid.Column>
 
         <Grid.Column className="form-container">
-          {props.responseReceived &&
-            (props.companyFound ? (
-              <ValidQuoteReturn
-                price={props.price}
-                companyName={props.companyName}
-                volume={props.volume}
-                weight={props.weight}
-              />
+          {quoteStore.responseReceived &&
+            (quoteStore.companyFound ? (
+              <ValidQuoteReturn />
             ) : (
-              <InValidQuoteReturn
-                price={props.price}
-                companyName={props.companyName}
-                volume={props.volume}
-                weight={props.weight}
-              />
+              <InValidQuoteReturn />
             ))}
         </Grid.Column>
       </Grid>
     </Container>
   );
-}
+});

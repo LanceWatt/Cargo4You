@@ -23,15 +23,12 @@
 *.bak
 
 # React specific
-/public
 /.cache
 /.idea
 yarn.lock
 
 # .NET specific
 /packages
-*.sln
-*.csproj
 *.user
 *.vs
 **/bin/
